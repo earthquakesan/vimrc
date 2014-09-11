@@ -1,8 +1,72 @@
+""" Vundle config
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin('~/.vim/addons')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" File manager for vim
+Plugin 'scrooloose/nerdtree'
+
+" Tab Completion
+Plugin 'ervandew/supertab'
+
+" Javascript
+" http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
+
+" bracket autocompletion
+Plugin 'Raimondi/delimitMate'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
 """ General
 
+set number
+
+""" Indentation
+set smartindent
+set expandtab
+set modeline
+set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+
+""" Special commands
+imap <C-c> <CR><Esc>O
+
 " Interface tweaks
-set guifont=Courier\ 14
-colorscheme morning
+"set guifont=Courier\ 14
+set t_Co=256
+syntax on
+set background=dark
+set guifont=Courier\ 18
+colorscheme distinguished
 
 " Enable hidden buffers
 set hidden
@@ -14,57 +78,35 @@ set mouse=a
 let mapleader = ","
 
 " Programming related
-set smartindent
-set tabstop=8
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set modeline
 " For python
-au FileType python setlocal ts=8 et sw=4 sts=4
+au FileType python setlocal smartindent modeline ts=8 et sw=4 sts=4
 
-""" Plugins
+" For javascript
+au FileType javascript setlocal smartindent modeline ts=4 et sw=2 sts=2
 
-"pathogen plugin manager configuration
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#infect()
-call pathogen#helptags()
+" For javascript
+au FileType css setlocal smartindent modeline ts=4 et sw=2 sts=2
 
-"File browser
+"Enable spell checking
+autocmd FileType tex setlocal spell spelllang=en_us
+
+""" Plugin specific
+
+"NERDTree
 map <leader>n :NERDTreeToggle<CR>
 
-""" Python tweaks
+"New tab
+map <leader>t :tabnew<CR>
+map <leader>] :tabn<CR>
+map <leader>[ :tabp<CR>
 
-"Enable folding
-set foldmethod=indent
-set foldlevel=99
+"Set system clipboard as default
+set clipboard=unnamedplus
 
-"syntax highlighting
-syntax on
-filetype on
-filetype indent plugin on
+"Syntastic
+let g:syntastic_check_on_open=1
 
-"Rope config
-let ropevim_vim_completion=1
-let ropevim_extended_complete=1
-let g:ropevim_autoimport_modules = ["os.*","traceback"]
-"imap <Nul> <C-R>=RopeCodeAssistInsertMode()<CR>
-"imap <c-space> <C-R>=RopeCodeAssistInsertMode()<CR>
-
-"Tab completion
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-
-" Add the virtualenv's site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir,
-    'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
+"YouCompleteMe
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
