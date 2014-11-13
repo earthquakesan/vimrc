@@ -23,8 +23,14 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'mattn/emmet-vim'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'elzr/vim-json'
+
+"Golang
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'fatih/vim-go'
 
 " bracket autocompletion
 Plugin 'Raimondi/delimitMate'
@@ -32,6 +38,7 @@ Plugin 'Raimondi/delimitMate'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -110,3 +117,10 @@ let g:syntastic_check_on_open=1
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
+
+"""Autocommands
+"" Comment out
+autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
+autocmd FileType python     nnoremap <buffer> <leader>c I#<esc>
+"" Latex
+autocmd BufWritePost *.tex !pdflatex %
