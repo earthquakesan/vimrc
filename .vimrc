@@ -32,6 +32,9 @@ Plugin 'elzr/vim-json'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'fatih/vim-go'
 
+"Dockerfile
+Plugin 'ekalinin/Dockerfile.vim'
+
 " bracket autocompletion
 Plugin 'Raimondi/delimitMate'
 
@@ -88,6 +91,9 @@ let mapleader = ","
 " For python
 au FileType python setlocal smartindent modeline ts=8 et sw=4 sts=4
 
+" For python
+au FileType go setlocal smartindent modeline ts=8 et sw=4 sts=4
+
 " For javascript
 au FileType javascript setlocal smartindent modeline ts=4 et sw=2 sts=2
 
@@ -123,4 +129,4 @@ set completeopt-=preview
 autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
 autocmd FileType python     nnoremap <buffer> <leader>c I#<esc>
 "" Latex
-autocmd BufWritePost *.tex !pdflatex %
+"autocmd BufWritePost *.tex !pdflatex %
